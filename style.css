@@ -119,7 +119,7 @@ body { font-family: 'Inter', sans-serif; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Slide area ── */
+/* ── Slide area — full screen ── */
 .slide-area {
   flex: 1;
   position: relative;
@@ -128,6 +128,7 @@ body { font-family: 'Inter', sans-serif; }
   align-items: center;
   justify-content: center;
   background: #110502;
+  min-height: 0;
 }
 
 .slides-track {
@@ -144,7 +145,6 @@ body { font-family: 'Inter', sans-serif; }
   align-items: center;
   justify-content: center;
   padding: 0;
-  position: relative;
 }
 
 .slide img {
@@ -157,14 +157,12 @@ body { font-family: 'Inter', sans-serif; }
   -webkit-user-drag: none;
 }
 
-.slide img.cover {
-  object-fit: cover;
-}
+.slide img.cover { object-fit: cover; }
 
-/* ── Placeholder when image not found ── */
+/* ── Placeholder ── */
 .slide-placeholder {
   width: 100%;
-  max-width: 340px;
+  max-width: 300px;
   aspect-ratio: 3 / 4;
   background: #2b1108;
   border-radius: 16px;
@@ -178,106 +176,109 @@ body { font-family: 'Inter', sans-serif; }
   text-align: center;
   padding: 28px;
 }
-
 .slide-placeholder i         { font-size: 2.8rem; opacity: 0.35; }
 .slide-placeholder .ph-title { font-size: 0.9rem; font-weight: 600; }
 .slide-placeholder .ph-sub   { font-size: 0.7rem; opacity: 0.55; }
 
-/* ── Floating viewer buttons (X, expand) ── */
+/* ════════════════════════════
+   FLOATING BUTTONS
+   All small, semi-transparent,
+   blurred — minimal footprint
+════════════════════════════ */
 .viewer-btn {
   position: absolute;
   z-index: 50;
-  width: 42px;
-  height: 42px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  border: 2px solid rgba(255, 255, 255, 0.22);
-  color: #fff;
-  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
-.viewer-btn:hover { background: #d63416; transform: scale(1.1); }
-
-/* ── Floating page counter ── */
-.counter-float {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 50;
-  font-size: 0.78rem;
-  font-weight: 700;
+.viewer-btn:hover {
+  background: rgba(214, 52, 22, 0.55);
   color: #fff;
-  background: rgba(0, 0, 0, 0.45);
-  padding: 5px 13px;
+  transform: scale(1.12);
+}
+
+/* Positions */
+.v-close { top: 10px; right: 10px; }
+.v-fill  { top: 10px; right: 48px; }
+
+/* Prev/Next — bottom corners, not middle of photo */
+.v-prev {
+  bottom: 10px;
+  left: 10px;
+  width: 34px;
+  height: 34px;
+  font-size: 0.75rem;
+}
+.v-next {
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  font-size: 0.75rem;
+}
+
+.viewer-btn:disabled { opacity: 0.15; pointer-events: none; }
+
+/* ── Page counter — top left, tiny pill ── */
+.viewer-counter {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 50;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.18);
+  padding: 3px 9px;
   border-radius: 20px;
   letter-spacing: 0.08em;
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
 }
 
-/* ── Prev / Next arrows ── */
-.arrow-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.22);
-  color: #fff;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  backdrop-filter: blur(6px);
-  transition: background 0.2s, transform 0.15s;
-}
-
-.arrow-btn:hover  { background: #f26122; border-color: #f26122; }
-.arrow-btn:active { transform: translateY(-50%) scale(0.9); }
-.arrow-btn:disabled { opacity: 0.2; pointer-events: none; }
-
-/* ── Floating dots ── */
+/* ── Dots — bottom center, tiny ── */
 .dot-row {
   position: absolute;
-  bottom: 22px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
-  background: rgba(0, 0, 0, 0.38);
-  padding: 7px 14px;
-  border-radius: 20px;
-  backdrop-filter: blur(6px);
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   cursor: pointer;
   transition: background 0.25s, transform 0.25s;
 }
 
 .dot.active {
-  background: #f26122;
-  transform: scale(1.45);
+  background: rgba(242, 97, 34, 0.8);
+  transform: scale(1.5);
 }
 
-/* ── Slide loading spinner ── */
+/* ── Loading spinner ── */
 .slide-loading {
   width: 100%;
   height: 100%;
@@ -286,8 +287,4 @@ body { font-family: 'Inter', sans-serif; }
   justify-content: center;
   color: rgba(255,255,255,0.3);
   font-size: 2rem;
-}
-
-.slide-loading i {
-  animation: fa-spin 0.8s linear infinite;
 }

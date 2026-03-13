@@ -1,0 +1,293 @@
+/* ============================================
+   CUPPA HOOCH — Digital Menu
+   style.css  |  Custom styles (Tailwind handles the rest)
+   ============================================ */
+
+/* ── Fonts ── */
+body { font-family: 'Inter', sans-serif; }
+
+/* ── Header logo ── */
+.header-logo {
+  display: block;
+  margin: 0 auto 12px;
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* ── Category card button ── */
+.cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 12px 18px;
+  border-radius: 20px;
+  border: 2px solid #f0d5c8;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  box-shadow: 0 2px 12px rgba(180, 70, 30, 0.1);
+}
+
+.cat-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #d63416, #f26122, #f5a623);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+  border-radius: 0 0 4px 4px;
+}
+
+.cat-btn:hover {
+  transform: translateY(-5px);
+  border-color: #f26122;
+  box-shadow: 0 12px 32px rgba(180, 70, 30, 0.18);
+}
+
+.cat-btn:hover::after { transform: scaleX(1); }
+.cat-btn:active       { transform: scale(0.97); }
+
+/* ── Category icon wrapper ── */
+.cat-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff0e8, #fde0cf);
+  border: 1.5px solid #f0d5c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.22s;
+}
+
+.cat-btn:hover .cat-icon-wrap {
+  background: linear-gradient(135deg, #fde0cf, #fbc9b0);
+}
+
+.cat-icon-wrap i {
+  font-size: 1.6rem;
+  color: #d63416;
+}
+
+/* ── Category label ── */
+.cat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2d1a0e;
+}
+
+/* ── Page count badge ── */
+.cat-count {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #f26122;
+  background: #fff4ee;
+  border: 1px solid #fcd5bc;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+/* ════════════════════════════
+   VIEWER SCREEN
+════════════════════════════ */
+#viewer-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #110502;
+  flex-direction: column;
+}
+
+#viewer-screen.open {
+  display: flex;
+  animation: vsIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes vsIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Slide area ── */
+.slide-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #110502;
+}
+
+.slides-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slide img.cover {
+  object-fit: cover;
+}
+
+/* ── Placeholder when image not found ── */
+.slide-placeholder {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 3 / 4;
+  background: #2b1108;
+  border-radius: 16px;
+  border: 2px dashed #5c2510;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #a06040;
+  text-align: center;
+  padding: 28px;
+}
+
+.slide-placeholder i         { font-size: 2.8rem; opacity: 0.35; }
+.slide-placeholder .ph-title { font-size: 0.9rem; font-weight: 600; }
+.slide-placeholder .ph-sub   { font-size: 0.7rem; opacity: 0.55; }
+
+/* ── Floating viewer buttons (X, expand) ── */
+.viewer-btn {
+  position: absolute;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.viewer-btn:hover { background: #d63416; transform: scale(1.1); }
+
+/* ── Floating page counter ── */
+.counter-float {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 5px 13px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(6px);
+}
+
+/* ── Prev / Next arrows ── */
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.15s;
+}
+
+.arrow-btn:hover  { background: #f26122; border-color: #f26122; }
+.arrow-btn:active { transform: translateY(-50%) scale(0.9); }
+.arrow-btn:disabled { opacity: 0.2; pointer-events: none; }
+
+/* ── Floating dots ── */
+.dot-row {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.38);
+  padding: 7px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.dot.active {
+  background: #f26122;
+  transform: scale(1.45);
+}
+
+/* ── Slide loading spinner ── */
+.slide-loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 2rem;
+}
+
+.slide-loading i {
+  animation: fa-spin 0.8s linear infinite;
+}

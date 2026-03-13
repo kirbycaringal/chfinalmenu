@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuppa Hooch — Menu</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome (food icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind config + custom CSS -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:  '#fff8f3',
+            red:    '#d63416',
+            orange: '#f26122',
+            amber:  '#f5a623',
+          },
+          fontFamily: {
+            playfair: ['"Playfair Display"', 'serif'],
+            inter:    ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-inter bg-cream text-gray-800 min-h-screen">
+
+  <!-- ══════════════════════════════
+       CATEGORY SCREEN
+  ══════════════════════════════ -->
+  <div id="category-screen" class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="relative overflow-hidden text-center py-10 px-6" style="background: linear-gradient(135deg, #d63416, #f26122, #f5a623);">
+      <!-- subtle radial overlay -->
+      <div class="absolute inset-0 pointer-events-none"
+           style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06), transparent 40%);">
+      </div>
+      <!-- logo image -->
+      <img src="hoochheader.png" alt="Cuppa Hooch" class="header-logo relative z-10" />
+      <!-- tagline -->
+      <p class="relative z-10 mt-2 text-xs font-semibold tracking-widest uppercase text-white/80">
+        Brunch to Dinner &nbsp;·&nbsp; Coffee to Beers
+      </p>
+    </header>
+
+    <!-- WAVE DIVIDER -->
+    <div class="w-full overflow-hidden leading-none -mt-px">
+      <svg viewBox="0 0 1200 48" preserveAspectRatio="none" class="block w-full h-10">
+        <path d="M0,32 C200,60 400,0 600,28 C800,56 1000,4 1200,24 L1200,0 L0,0 Z" fill="url(#wg)" />
+        <defs>
+          <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#d63416"/>
+            <stop offset="50%"  stop-color="#f26122"/>
+            <stop offset="100%" stop-color="#f5a623"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- SECTION LABEL -->
+    <p class="text-center font-playfair text-base text-orange pt-6 pb-2 tracking-wide">
+      What would you like to see?
+    </p>
+
+    <!--
+    ╔═══════════════════════════════════════════════════════╗
+    ║  HOW TO ADD YOUR PHOTOS                               ║
+    ║                                                       ║
+    ║  Each button has  data-images=""                      ║
+    ║  Put your image filenames there, comma-separated.     ║
+    ║                                                       ║
+    ║  Example (2 photos):  data-images="bev1.jpg,bev2.jpg" ║
+    ║  Example (1 photo):   data-images="maincourse.jpg"    ║
+    ║                                                       ║
+    ║  Keep all images in the same folder as this file.     ║
+    ╚═══════════════════════════════════════════════════════╝
+    -->
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  MENU CATEGORIES — based on Cuppa Hooch PDF menu                ║
+    ║                                                                  ║
+    ║  Set data-images="yourfile.jpg" on each button.                 ║
+    ║  For multiple pages: data-images="page1.jpg,page2.jpg"          ║
+    ║  Keep all images in the same folder as index.html.              ║
+    ║                                                                  ║
+    ║  CATEGORY        → IMAGE FILE(S) TO USE                         ║
+    ║  Beverages       → beverages.jpg   (PDF page 3)                 ║
+    ║  Appetizers      → appetizers.jpg  (PDF page 1 — left col)      ║
+    ║  Mains           → mains.jpg       (PDF page 2 — left col)      ║
+    ║  Pasta & Seafood → pasta.jpg       (PDF page 2 — right col)     ║
+    ║  Flatbreads &    → flatbreads.jpg  (PDF page 1 — right col)     ║
+    ║    Snacks                                                        ║
+    ║  Beers & Drinks  → beers.jpg       (PDF page 4)                 ║
+    ║  Party Trays     → partytrays.jpg  (PDF page 5)                 ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  MENU CATEGORIES — export each PDF page as an image             ║
+    ║                                                                  ║
+    ║    page1.jpg → PDF Page 1  (Appetizer, Flatbread,               ║
+    ║                              Nachos, Pita & Dip,                ║
+    ║                              Waffles, Sandwich)                 ║
+    ║    page2.jpg → PDF Page 2  (Mains, Seafood, Pasta,              ║
+    ║                              Wings, Rice)                       ║
+    ║    page3.jpg → PDF Page 3  (Coffee, Matcha & Choco,             ║
+    ║                              Crush, Refreshers)                 ║
+    ║    page4.jpg → PDF Page 4  (Beers & Soju, Others)               ║
+    ║    page5.jpg → PDF Page 5  (Party Trays)                        ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+
+    <!-- CATEGORY GRID -->
+    <nav id="cat-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 px-6 py-4 max-w-lg mx-auto w-full">
+
+      <!-- BEVERAGES & DRINKS — PDF Page 3 + 4 -->
+      <button class="cat-btn" data-label="Beverages & Drinks" data-images="page3.png,page4.png">
+        <div class="cat-icon-wrap">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <span class="cat-label">Beverages & Drinks</span>
+      </button>
+
+      <!-- FOOD MENU — PDF Page 1 + 2 -->
+      <button class="cat-btn" data-label="Food Menu" data-images="page1.png,page2.png">
+        <div class="cat-icon-wrap">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <span class="cat-label">Food Menu</span>
+      </button>
+
+      <!-- PARTY TRAYS — PDF Page 5 -->
+      <button class="cat-btn" data-label="Party Trays" data-images="page5.png">
+        <div class="cat-icon-wrap">
+          <i class="fa-solid fa-cake-candles"></i>
+        </div>
+        <span class="cat-label">Party Trays</span>
+      </button>
+
+    </nav>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-orange/20 bg-white py-4 px-4 flex items-center justify-center gap-2 text-xs text-orange/70">
+      <i class="fa-solid fa-mug-hot text-orange"></i>
+      <span>Cuppa Hooch &nbsp;·&nbsp; Tap a category to explore our menu</span>
+    </footer>
+
+  </div>
+
+  <!-- ══════════════════════════════
+       VIEWER SCREEN
+  ══════════════════════════════ -->
+  <div id="viewer-screen">
+    <div class="slide-area" id="slide-area">
+
+      <div class="slides-track" id="slides-track"></div>
+
+      <!-- X close button -->
+      <button id="close-btn" class="viewer-btn" style="top:16px; right:16px;" title="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- fit / fill toggle -->
+      <button id="fullscreen-btn" class="viewer-btn" style="top:16px; right:68px;" title="Fill screen">
+        <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
+      </button>
+
+      <!-- page counter -->
+      <span id="viewer-counter" class="counter-float">1 / 2</span>
+
+      <!-- arrows -->
+      <button id="prev-btn" class="arrow-btn" style="left:14px;">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button id="next-btn" class="arrow-btn" style="right:14px;">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <!-- dots -->
+      <div id="dot-row" class="dot-row"></div>
+
+    </div>
+  </div>
+
+  <script src="menu.js"></script>
+</body>
+</html>
